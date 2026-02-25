@@ -1,4 +1,13 @@
 ###
 
-Get http://localhost:1301/usuarios
+Get http://localhost:3000/usuarios
 
+###
+
+POST http://localhost:3000/usuarios
+Content-Type: application/json
+
+{
+    "nome": "Guilherme",
+    "idade": "17"
+}

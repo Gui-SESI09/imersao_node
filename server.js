@@ -1,15 +1,29 @@
 import fastify from "fastify";
+import { Pool } from 'pg'
+
+const sql = new Pool({
+    user: "postgres",
+    password: "senai",
+    host: "localhost",
+    port: 5432,
+    database: 'receitas'
+})
 
 const servidor = fastify();
 
-servidor.get('/usuarios', () => {
-    return 'ola mundo!'
+const usuarios = []
+
+servidor.get('/usuarios', async () => {
+    const resultado = await sql.query(`select * from usuarios`)
+    return resultado.rows
 })
 
-servidor.post('/usuarios', () => {
-    return 'ola mundo!'
+servidor.post('/usuarios', (request, reply) => {
+   const body = request.body
+   usuarios.push(body)
+   return 'Usuario Cadastrado'
 })
 
 servidor.listen({
-    port:1301
+    port:3000
 })
